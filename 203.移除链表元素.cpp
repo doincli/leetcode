@@ -27,10 +27,10 @@
 class Solution {
 public:
     ListNode* removeElements(ListNode* head, int val) {
-        ListNode *hummyhead = new ListNode(0);
-        hummyhead->next = head;
-        ListNode *cur = hummyhead;
-        while (cur->next != nullptr)
+        ListNode * dummyhead = new ListNode(0);
+        dummyhead->next = head;
+        ListNode *cur = dummyhead;
+        while (cur->next != NULL)
         {
             if (cur->next->val == val)
             {
@@ -40,7 +40,7 @@ public:
                 cur = cur->next;
             }
         }
-        return hummyhead->next;
+        return dummyhead->next;
     }
 };
 // @lc code=end

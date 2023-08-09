@@ -17,15 +17,13 @@ public:
         int result = INT32_MAX;
         while (fast < nums.size())
         {
-            sum += nums[fast];
+            sum += nums[fast++];
             while (sum >= target)
             {
-                int len = fast - slow + 1;
+                int len = fast - slow;
                 result = result < len ? result : len;
-                cout << result << endl;
                 sum -= nums[slow++];
             }
-            fast++;
         }
         return result = result == INT32_MAX? 0 : result;
     }
