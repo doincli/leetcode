@@ -23,8 +23,12 @@ public:
             }
             
         }
-        vector<int> result_fin(result.begin(),result.end());
-        return result_fin;
+        vector<int> result_final;
+        for(auto iter = result.begin(); iter != result.end(); iter++){
+            result_final.push_back(*iter);
+        }
+        
+        return result_final;
     }
 };
 // @lc code=end
