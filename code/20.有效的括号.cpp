@@ -28,12 +28,12 @@ public:
             }else if (s[i] == '[')
             {
                  st.push(']');
-            }else if (st.empty() || s[i] != st.top())
-            {
-                return false;
-            }else
+            }else if (!st.empty() && s[i] == st.top())
             {
                 st.pop();
+            }else
+            {
+                return false;
             }        
         }
         return st.empty();
