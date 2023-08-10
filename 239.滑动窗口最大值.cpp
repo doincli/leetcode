@@ -5,64 +5,53 @@
  */
 
 // @lc code=start
-#include <string>
-#include <stack>
-#include <vector>
+#include "iostream"
+#include "vector"
 #include <deque>
 using namespace std;
-
 class Solution {
 public:
+    deque<int> path;
+    void push(int val){
+        while (!path.empty()&&val > path.back())
+        {
+            path.pop_back();
+        }
+        path.push_back(val);
+    }
 
-    class MyQueue
+    void pop(){
+        path.pop_front();
+    }
+
+    int front()
     {
-    private:
-        
-    public:
-        deque<int> que;
+        return path.front();
+    }
 
-    void pop(int value){
-        if (value == que.front())
+    void print(){
+        for (int i = 0; i < path.size(); i++)
         {
-            que.pop_front();
+            cout << path[i] << ",";
         }
-        
+        cout << endl;
     }
-
-    void push(int value){
-        while (!que.empty() && value > que.back())
-        {
-            que.pop_back();
-        }
-        que.push_back(value);
-        
-    }
-
-    int front(){
-        return que.front();
-    }
-    };
-    
-
-
-
-
     vector<int> maxSlidingWindow(vector<int>& nums, int k) {
-        MyQueue que;
         vector<int> result;
         for (int i = 0; i < k; i++)
         {
-            que.push(nums[i]);
+            push(nums[i]);
         }
-        result.push_back(que.front());
-
+        result.push_back(front());
         for (int i = k; i < nums.size(); i++)
         {
-           que.pop(nums[i-k]);
-            que.push(nums[i]);
-            result.push_back(que.front());
+            if (!path.empty()&& nums[i-k] == front())
+            {
+                pop();
+            }
+            push(nums[i]);
+            result.push_back(front());
         }
-        
         return result;
     }
 };

@@ -12,7 +12,7 @@ vector<vector<int>> result;
 vector<int> path;
 class Solution {
 public:
-    void backtracking(int n, int k,int index){
+    void backtracing(int k,int n,int index){
         if (path.size() == k)
         {
             result.push_back(path);
@@ -21,15 +21,15 @@ public:
         for (int i = index; i <= n; i++)
         {
             path.push_back(i);
-            backtracking(n,k,i+1);
+            backtracing(k,n,i+1);
             path.pop_back();
         }
+        
     }
     vector<vector<int>> combine(int n, int k) {
-        
+        path.clear();
         result.clear();
-        // path.clear();
-        backtracking(n,k,1);
+        backtracing(k,n,1);
         return result;
     }
 };
