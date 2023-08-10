@@ -12,30 +12,31 @@
 using namespace std;
 
 class Solution {
-public:
-
+private:
     vector<vector<int>> result;
     vector<int> path;
-    void backtracking(vector<int>& nums, int startIndex, vector<bool>& used) {
-        result.push_back(path);
+    void backtracking(vector<int>& nums, int startIndex) {
+        if (path.size() > 1) {
+            result.push_back(path);
+            // 注意这里不要加return，要取树上的节点
+        }
+        unordered_set<int> uset; // 使用set对本层元素进行去重
         for (int i = startIndex; i < nums.size(); i++) {
-            if (i > 0 && nums[i] == nums[i - 1] && used[i - 1] == false) {
-                continue;
+            if ((!path.empty() && nums[i] < path.back())
+                    || uset.find(nums[i]) != uset.end()) {
+                    continue;
             }
+            uset.insert(nums[i]); // 记录这个元素在本层用过了，本层后面不能再用了
             path.push_back(nums[i]);
-            used[i] = true;
-            backtracking(nums, i + 1, used);
-            used[i] = false;
+            backtracking(nums, i + 1);
             path.pop_back();
         }
     }
-
+public:
     vector<vector<int>> findSubsequences(vector<int>& nums) {
         result.clear();
         path.clear();
-        vector<bool> used(nums.size(), false);
-        sort(nums.begin(), nums.end()); // 去重需要排序
-        backtracking(nums, 0, used);
+        backtracking(nums, 0);
         return result;
     }
 };
