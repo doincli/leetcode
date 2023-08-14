@@ -11,14 +11,13 @@ using namespace std;
 class Solution {
 public:
     int climbStairs(int n) {
-        vector<int> path(n+1,0);
-        path[0] = 1;
-        path[1] = 1;
-        for (int i = 2; i <= n; i++)
+        vector<int> vec(n+1,1);
+        vec[1] = 1;
+        for (int i = 2; i < n+1; i++)
         {
-            path[i] = path[i-1] + path[i-2];
+            vec[i] = vec[i-1] + vec[i-2];
         }
-        return path[n];
+        return vec[n];
     }
 };
 // @lc code=end
