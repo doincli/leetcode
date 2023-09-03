@@ -57,31 +57,30 @@
 // @lc code=start
 #include <iostream>
 #include <vector>
-using namespace std;
+using namespace std; 
 
 class Solution {
 public:
-    int dp(vector<int>& nums,int start,int end){
-        int n = end - start + 1;
+    int rob_cal(vector<int> &nums,int start, int end){
+        int n = end - start +1;
         vector<int> dp(n+1,0);
         dp[1] = nums[start];
         for (int i = 2; i <= n; i++)
         {
-            dp[i] = max(dp[i-1],dp[i-2] + nums[start+1]);
-            start++;
-        }
-        cout << dp[n] << endl;
-        return dp[n];
-    }
-    int rob(vector<int>& nums) {
-        if (nums.size() <= 1)
-        {
-            return nums[0];
+            dp[i] = max(nums[start+i-1] + dp[i - 2],dp[i - 1]);
         }
         
-        int value1 = dp(nums,0,nums.size()-2);
-        int value2 = dp(nums,1,nums.size()-1);
-        return max(value1,value2);
+        return dp[n];
+    }
+
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+        if (n == 1) return nums[0];
+
+        int left = rob_cal(nums,0,n-2);
+        int right = rob_cal(nums,1,n-1);
+        int result = max(left,right);
+        return result;
     }
 };
 // @lc code=end
